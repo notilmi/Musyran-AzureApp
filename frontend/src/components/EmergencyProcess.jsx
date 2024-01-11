@@ -8,7 +8,7 @@ function EmergencyProcess({
   setSuccessStatement,
 }) {
   if (!authCode) {
-    console.log("lah null");
+    console.log("AuthCode Not Found");
     setErrorOpen(true);
     setErrorStatement(
       "Silahkan masukkan kode terlebih dahulu sebelum menekan tombol submit."
@@ -25,7 +25,7 @@ function EmergencyProcess({
           console.log(response)
           setSuccessOpen(true);
           setSuccessStatement(
-            "QR terdeteksi! Kamu akan diarahkan ke halaman voting...~"
+            "Kode terdeteksi! Kamu akan diarahkan ke halaman voting...~"
           );
         }
       })
@@ -34,14 +34,14 @@ function EmergencyProcess({
         if (error.response.status === 404) {
           setErrorOpen(true);
           setErrorStatement(
-            "QR kamu tidak valid dan tidak ada di server kami. Hubungi operator untuk informasi lebih lanjut"
+            "Kode kamu tidak valid dan tidak ada di server kami. Hubungi operator untuk informasi lebih lanjut"
           );
         }
 
         if (error.response.status === 406) {
           setErrorOpen(true);
           setErrorStatement(
-            "Kamu telah menggunakan QR ini sebelumnya. Jika anda merasa ini bukan kesalahan anda, silahkan hubungi operator."
+            "Kamu telah menggunakan Kode ini sebelumnya. Jika anda merasa ini bukan kesalahan anda, silahkan hubungi operator."
           );
         }
 

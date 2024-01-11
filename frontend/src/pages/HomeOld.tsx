@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import { CssVarsProvider, useColorScheme } from "@mui/joy/styles";
 import GlobalStyles from "@mui/joy/GlobalStyles";
 import CssBaseline from "@mui/joy/CssBaseline";
@@ -9,7 +10,6 @@ import Divider from "@mui/joy/Divider";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel, { formLabelClasses } from "@mui/joy/FormLabel";
 import IconButton, { IconButtonProps } from "@mui/joy/IconButton";
-import Link from "@mui/joy/Link";
 import Input from "@mui/joy/Input";
 import Typography from "@mui/joy/Typography";
 import Stack from "@mui/joy/Stack";
@@ -147,8 +147,8 @@ export default function Home() {
                 color="primary"
                 size="sm"
                 aria-label="Open in new tab"
-                component="a"
-                href="/home"
+                component={Link}
+                to="/home"
               >
                 <HowToVote />
               </IconButton>
@@ -208,8 +208,8 @@ export default function Home() {
                 fullWidth
                 startDecorator={<QrCode></QrCode>}
                 aria-label="Open in new tab"
-                component="a"
-                href="/darurat"
+                component={Link}
+                to="/darurat"
               >
                 Masukkan Kode Secara Manual
               </Button>

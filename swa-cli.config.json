@@ -3,7 +3,7 @@
   "configurations": {
     "musyran-azure-app": {
       "appLocation": "frontend",
-      "outputLocation": "build",
+      "outputLocation": "frontend/dist",
       "apiLanguage": "node",
       "apiVersion": "16",
       "appBuildCommand": "npm run build",

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { redirect } from 'react-router-dom';
 import { CssVarsProvider, useColorScheme } from '@mui/joy/styles';
 import GlobalStyles from '@mui/joy/GlobalStyles';
 import CssBaseline from '@mui/joy/CssBaseline';
@@ -61,7 +62,7 @@ function ColorSchemeToggle(props: IconButtonProps) {
 
 export default function Done() {
   setInterval(() => {
-    location.href = "/"
+     return redirect("/")
   }, 5000)
   return (
     <CssVarsProvider defaultMode="dark" disableTransitionOnChange>
