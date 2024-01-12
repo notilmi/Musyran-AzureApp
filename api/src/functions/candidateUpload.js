@@ -5,7 +5,7 @@ const { buildResponse } = require("../lib/utilities");
 app.http("candidateUpload", {
     methods: ["POST"],
     route: "candidate",
-    authLevel: "anonymous",
+    authLevel: "admin",
     handler: async (request, context) => {
       try {
         const candidate = await request.json();
