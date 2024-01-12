@@ -2,8 +2,9 @@
   "$schema": "https://aka.ms/azure/static-web-apps-cli/schema",
   "configurations": {
     "musyran-azure-app": {
-      "appLocation": "/frontend",
-      "outputLocation": "/frontend/dist",
+      "appLocation": "/",
+      "apiLocation": "api",
+      "outputLocation": "dist",
       "apiLanguage": "node",
       "apiVersion": "16",
       "appBuildCommand": "npm run build",

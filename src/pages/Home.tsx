@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { CssVarsProvider, useColorScheme } from "@mui/joy/styles";
 import GlobalStyles from "@mui/joy/GlobalStyles";
 import CssBaseline from "@mui/joy/CssBaseline";
@@ -20,6 +20,9 @@ import { HowToVote, DoorFront } from "@mui/icons-material";
 import EmergencyProcess from "../components/EmergencyProcess";
 import SuccessSnackbar from "../components/SuccessSnackbar";
 import ErrorSnackbar from "../components/ErrorSnackbar";
+import Snackbar from "@mui/joy/Snackbar";
+import { LinearProgress } from "@mui/joy";
+import { HourglassEmpty } from "@mui/icons-material";
 
 interface FormElements extends HTMLFormControlsCollection {
   email: HTMLInputElement;
@@ -66,6 +69,7 @@ export default function Home() {
   const [authCode, setAuthCode] = React.useState(String);
   const [successOpen, setSuccessOpen] = React.useState(false);
   const [errorOpen, setErrorOpen] = React.useState(false);
+  const [open, processOpen] = React.useState(false);
 
   const [successStatement, setSuccessStatement] = React.useState(null);
   const [errorStatement, setErrorStatement] = React.useState(null);
@@ -164,7 +168,8 @@ export default function Home() {
                   Sistem Informasi Musyawarah Pemilihan Berbasis E-Voting
                 </Typography>
                 <Typography level="body-lg">
-                  Silahkan Masukkan Kode Pemilihan Berdasarkan Nama Anda Pada List Di Bilik Pemilihan
+                  Silahkan Masukkan Kode Pemilihan Berdasarkan Nama Anda Pada
+                  List Di Bilik Pemilihan
                 </Typography>
               </Stack>
             </Stack>
@@ -191,21 +196,53 @@ export default function Home() {
                 fullWidth
               />
               <Button
-                onClick={() =>
+                onClick={() => {
                   EmergencyProcess({
                     authCode: authCode,
                     setErrorOpen: setErrorOpen,
                     setErrorStatement: setErrorStatement,
                     setSuccessOpen: setSuccessOpen,
                     setSuccessStatement: setSuccessStatement,
-                  })
-                }
+                  }),
+                    processOpen(true);
+                }}
                 color="primary"
                 fullWidth
                 startDecorator={<DoorFront></DoorFront>}
               >
                 Mulai Memilih
               </Button>
+              <Snackbar
+                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                variant="soft"
+                color="success"
+                open={successOpen}
+                autoHideDuration={3000}
+                onClose={() => {
+                  processOpen(false);
+                }}
+                startDecorator={<HourglassEmpty sx={{ fontSize: 50 }} />}
+              >
+                \
+                <div sx={{ marginLeft: "25px" }}>
+                  <Typography level="title-lg">Memproses Kode!</Typography>
+                  <Typography sx={{ mt: 1, mb: 2 }}>
+                    Sedang Memproses Kode Yang Barusan Anda Masukkan Silahkan Tunggu Sebentar...
+                  </Typography>
+                  <LinearProgress
+                    variant="solid"
+                    color="success"
+                    value={40}
+                    sx={{
+                      position: "absolute",
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      borderRadius: 0,
+                    }}
+                  />
+                </div>
+              </Snackbar>
             </Stack>
           </Box>
           <Box component="footer" sx={{ py: 3 }}>
