@@ -45,7 +45,7 @@ export default function CandidateCard({
         sx={{
           width: "285px",
           textAlign: "center",
-          marginLeft: "30px",
+          marginLeft: "15px",
           marginTop: "15px",
           marginBottom: "15px",
           borderRadius: "15px"
