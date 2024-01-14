@@ -122,8 +122,8 @@ export default function CandidateCard({
             >
               Tentang Calon Formatur
             </Typography>
-            <Box sx={{ width: "auto", display: "flex", flexDirection: "row" }}>
-              <Box sx={{}}>
+            <Box sx={{ width: "1000px", display: "flex", flexDirection: "row" }}>
+              <Box sx={{marginRight: "25px"}}>
                 <Typography
                   component="h3"
                   id="modal-number"
