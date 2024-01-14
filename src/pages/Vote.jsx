@@ -3,7 +3,7 @@ import axios from "axios";
 import Box from "@mui/system/Box";
 import { CssVarsProvider } from "@mui/joy/styles";
 import CssBaseline from "@mui/joy/CssBaseline";
-import CircularProgress from '@mui/joy/CircularProgress';
+import CircularProgress from "@mui/joy/CircularProgress";
 import Typography from "@mui/joy/Typography";
 import "react-tiny-fab/dist/styles.css";
 
@@ -31,9 +31,7 @@ function Vote() {
   useEffect(() => {
     const fetchCandidates = async () => {
       try {
-        const response = await axios.get(
-          "api/vote"
-        );
+        const response = await axios.get("api/vote");
         setCandidates(response.data.body);
       } catch (error) {
         console.error("Error fetching candidates:", error);
@@ -59,7 +57,7 @@ function Vote() {
             setErrorOpen: setErrorOpen,
             setErrorStatement: setErrorStatement,
             setSuccessOpen: setSuccessOpen,
-            setSuccessStatement: setSuccessStatement
+            setSuccessStatement: setSuccessStatement,
           })
         }
       />
@@ -85,17 +83,20 @@ function Vote() {
             flexWrap: "wrap",
           }}
         >
-          {candidates.map((candidate) => (
-            <CandidateCard
-              key={candidate._id}
-              CandidateNumber={candidate.nomorKandidat}
-              CandidateName={candidate.option}
-              CandidateMission={candidate.misi}
-              CandidateVision={candidate.visi}
-              CandidateAvatar={candidate.avataruri}
-              selectedCandidate={selectedCandidate}
-            />
-          ))}
+          {candidates
+            .slice()
+            .sort((a, b) => a.nomorKandidat - b.nomorKandidat)
+            .map((candidate) => (
+              <CandidateCard
+                key={candidate.nomorKandidat}
+                CandidateNumber={candidate.nomorKandidat}
+                CandidateName={candidate.option}
+                CandidateMission={candidate.misi}
+                CandidateVision={candidate.visi}
+                CandidateAvatar={candidate.avataruri}
+                selectedCandidate={selectedCandidate}
+              />
+            ))}
         </Box>
       )}
       <SuccessSnackbar
