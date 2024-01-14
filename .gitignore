@@ -12,7 +12,6 @@ node_modules
 
 # Editor directories and files
 .vscode/*
-.github/*
 !.vscode/extensions.json
 .idea
 .DS_Store
@@ -21,8 +20,6 @@ node_modules
 *.njsproj
 *.sln
 *.sw?
-.github
-
 bin
 obj
 csx
