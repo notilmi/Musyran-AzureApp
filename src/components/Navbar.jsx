@@ -4,12 +4,20 @@ import Typography from "@mui/joy/Typography";
 import HowToVote from "@mui/icons-material/HowToVote";
 import ColorSchemeToggle from "./ColorSchemeToggle";
 import Snackbar from "@mui/joy/Snackbar";
+import Chip from "@mui/joy/Chip"
 import Stack from "@mui/joy/Stack";
 import Button from "@mui/joy/Button";
-import LinearProgress from "@mui/joy/LinearProgress"
+import LinearProgress from "@mui/joy/LinearProgress";
 
-export default function HeaderSection() {
+export default function HeaderSection({ countCandidate }) {
   const [open, setOpen] = React.useState(false);
+  const [theme, setTheme] = React.useState("neutral")
+
+  React.useEffect(() => {
+    if (countCandidate < 10) { setTheme("neutral") }
+    else if (countCandidate == 10) { setTheme("success") }
+    else if (countCandidate > 10) { setTheme("danger") }
+  })
   return (
     <Box
       sx={{
@@ -25,7 +33,7 @@ export default function HeaderSection() {
         borderBottom: "1px solid",
         borderColor: "divider",
         position: "sticky",
-        width: "auto"
+        width: "auto",
       }}
     >
       <Box
@@ -49,7 +57,7 @@ export default function HeaderSection() {
           onClose={() => setOpen(false)}
           anchorOrigin={{ vertical: "top", horizontal: "left" }}
           sx={{
-            marginTop:"45px"
+            marginTop: "45px",
           }}
         >
           <div>
@@ -92,7 +100,11 @@ export default function HeaderSection() {
             alignItems: "center",
             display: { xs: "none", sm: "flex" },
           }}
-        ></Box>
+        >
+          <Chip variant="solid" color={theme}>
+            {countCandidate}/<strong>10</strong>
+          </Chip>
+        </Box>
         <ColorSchemeToggle sx={{ alignSelf: "center" }} />
       </Box>
     </Box>

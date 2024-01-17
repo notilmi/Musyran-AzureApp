@@ -19,6 +19,8 @@ export default function CandidateCard({
   CandidateMission,
   CandidateVision,
   CandidateAvatar,
+  countCandidate,
+  setCountCandidate,
   selectedCandidate
 }) {
   const [open, setOpen] = React.useState(false);
@@ -29,10 +31,12 @@ export default function CandidateCard({
     setClicked(!clicked);
     
     if (!clicked) {
+      setCountCandidate(countCandidate + 1)
       selectedCandidate.push(CandidateName)
     } else {
       let index = selectedCandidate.indexOf(CandidateName)
       if (index !== -1) {
+        setCountCandidate(countCandidate - 1)
         selectedCandidate.splice(index, 1)
       }
     }
@@ -51,7 +55,6 @@ export default function CandidateCard({
           borderRadius: "15px"
         }}
       >
-        <div></div>
         <Box sx={{ borderRadius: "12px", overflow: "hidden" }}>
           <AspectRatio
             minHeight="400px"

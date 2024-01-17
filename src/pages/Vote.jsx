@@ -6,6 +6,7 @@ import CssBaseline from "@mui/joy/CssBaseline";
 import CircularProgress from "@mui/joy/CircularProgress";
 import Typography from "@mui/joy/Typography";
 import "react-tiny-fab/dist/styles.css";
+import NotFound from "./NotFound"
 
 import NavBar from "../components/Navbar";
 import CandidateCard from "../components/CandidateCard";
@@ -16,9 +17,11 @@ import SuccessSnackbar from "../components/SuccessSnackbar";
 
 function Vote() {
   const authCode = new URLSearchParams(location.search).get("authCode");
+  if (!authCode) { return(<NotFound />)}
 
   const [candidates, setCandidates] = useState([]);
-  const [selectedCandidate] = useState([]);
+  const [countCandidate, setCountCandidate] = useState(0)
+  const [selectedCandidate] = React.useState([]);
 
   const [successOpen, setSuccessOpen] = React.useState(false);
   const [errorOpen, setErrorOpen] = React.useState(false);
@@ -27,7 +30,6 @@ function Vote() {
   const [errorStatement, setErrorStatement] = React.useState(null);
 
   const [loading, setLoading] = useState(true); // Initially set to true to show the loading screen.
-
   useEffect(() => {
     const fetchCandidates = async () => {
       try {
@@ -48,7 +50,7 @@ function Vote() {
   return (
     <CssVarsProvider>
       <CssBaseline />
-      <NavBar />
+      <NavBar countCandidate={countCandidate}/>
       <FAB
         sendVote={() =>
           sendVote({
@@ -94,6 +96,8 @@ function Vote() {
                 CandidateMission={candidate.misi}
                 CandidateVision={candidate.visi}
                 CandidateAvatar={candidate.avataruri}
+                countCandidate={countCandidate}
+                setCountCandidate={setCountCandidate}
                 selectedCandidate={selectedCandidate}
               />
             ))}
