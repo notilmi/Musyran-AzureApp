@@ -6,7 +6,7 @@ import CssBaseline from "@mui/joy/CssBaseline";
 import CircularProgress from "@mui/joy/CircularProgress";
 import Typography from "@mui/joy/Typography";
 import "react-tiny-fab/dist/styles.css";
-import NotFound from "./NotFound"
+import NotFound from "./NotFound";
 
 import NavBar from "../components/Navbar";
 import CandidateCard from "../components/CandidateCard";
@@ -14,17 +14,21 @@ import FAB from "../components/FloatingVoteButton";
 import ErrorSnackbar from "../components/ErrorSnackbar";
 import sendVote from "../components/voteProcessing";
 import SuccessSnackbar from "../components/SuccessSnackbar";
+import ProgressSnackbar from "../components/ProgressSnackbar";
 
 function Vote() {
   const authCode = new URLSearchParams(location.search).get("authCode");
-  if (!authCode) { return(<NotFound />)}
+  if (!authCode) {
+    return <NotFound />;
+  }
 
   const [candidates, setCandidates] = useState([]);
-  const [countCandidate, setCountCandidate] = useState(0)
+  const [countCandidate, setCountCandidate] = useState(0);
   const [selectedCandidate] = React.useState([]);
 
   const [successOpen, setSuccessOpen] = React.useState(false);
   const [errorOpen, setErrorOpen] = React.useState(false);
+  const [progressOpen, setProgressOpen] = React.useState(false);
 
   const [successStatement, setSuccessStatement] = React.useState(null);
   const [errorStatement, setErrorStatement] = React.useState(null);
@@ -50,7 +54,7 @@ function Vote() {
   return (
     <CssVarsProvider>
       <CssBaseline />
-      <NavBar countCandidate={countCandidate}/>
+      <NavBar countCandidate={countCandidate} />
       <FAB
         sendVote={() =>
           sendVote({
@@ -60,6 +64,7 @@ function Vote() {
             setErrorStatement: setErrorStatement,
             setSuccessOpen: setSuccessOpen,
             setSuccessStatement: setSuccessStatement,
+            setProgressOpen: setProgressOpen,
           })
         }
       />
@@ -115,6 +120,10 @@ function Vote() {
         setErrorOpen={setErrorOpen}
         errorStatement={errorStatement}
         setErrorStatement={setErrorStatement}
+      />
+      <ProgressSnackbar
+        progressOpen={progressOpen}
+        setProgressOpen={setProgressOpen}
       />
     </CssVarsProvider>
   );
