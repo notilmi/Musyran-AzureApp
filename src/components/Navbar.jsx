@@ -11,10 +11,10 @@ import LinearProgress from "@mui/joy/LinearProgress";
 
 export default function HeaderSection({ countCandidate }) {
   const [open, setOpen] = React.useState(false);
-  const [theme, setTheme] = React.useState("neutral")
+  const [theme, setTheme] = React.useState("warning")
 
   React.useEffect(() => {
-    if (countCandidate < 10) { setTheme("neutral") }
+    if (countCandidate < 10) { setTheme("warning") }
     else if (countCandidate == 10) { setTheme("success") }
     else if (countCandidate > 10) { setTheme("danger") }
   })
