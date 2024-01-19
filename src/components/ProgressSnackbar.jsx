@@ -19,7 +19,7 @@ function ProgressSnackbar({
     >
       <div sx={{marginLeft: "25px"}}>
         <Typography level="title-lg">Memproses...</Typography>
-        <Typography sx={{ mt: 1, mb: 2 }}>Kami sedang memproses tindakan anda. Silahtan tunggu beberapa saat!</Typography>
+        <Typography sx={{ mt: 1, mb: 2 }}>Kami sedang memproses tindakan anda. Silahkan tunggu beberapa saat!</Typography>
         <LinearProgress
           variant="solid"
           color="neutral"
