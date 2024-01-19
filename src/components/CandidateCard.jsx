@@ -19,6 +19,8 @@ export default function CandidateCard({
   CandidateMission,
   CandidateVision,
   CandidateAvatar,
+  countCandidate,
+  setCountCandidate,
   selectedCandidate
 }) {
   const [open, setOpen] = React.useState(false);
@@ -29,10 +31,12 @@ export default function CandidateCard({
     setClicked(!clicked);
     
     if (!clicked) {
+      setCountCandidate(countCandidate + 1)
       selectedCandidate.push(CandidateName)
     } else {
       let index = selectedCandidate.indexOf(CandidateName)
       if (index !== -1) {
+        setCountCandidate(countCandidate - 1)
         selectedCandidate.splice(index, 1)
       }
     }
@@ -45,13 +49,12 @@ export default function CandidateCard({
         sx={{
           width: "285px",
           textAlign: "center",
-          marginLeft: "30px",
+          marginLeft: "15px",
           marginTop: "15px",
           marginBottom: "15px",
           borderRadius: "15px"
         }}
       >
-        <div></div>
         <Box sx={{ borderRadius: "12px", overflow: "hidden" }}>
           <AspectRatio
             minHeight="400px"
@@ -122,8 +125,8 @@ export default function CandidateCard({
             >
               Tentang Calon Formatur
             </Typography>
-            <Box sx={{ width: "auto", display: "flex", flexDirection: "row" }}>
-              <Box sx={{}}>
+            <Box sx={{ width: "1000px", display: "flex", flexDirection: "row" }}>
+              <Box sx={{marginRight: "25px"}}>
                 <Typography
                   component="h3"
                   id="modal-number"

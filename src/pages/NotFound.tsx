@@ -121,7 +121,7 @@ export default function NotFound() {
                 size="sm"
                 aria-label="Open in new tab"
                 component={Link}
-                to="/home"
+                to="/"
               >
                 <HowToVote />
               </IconButton>

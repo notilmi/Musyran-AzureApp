@@ -17,12 +17,10 @@ import DarkModeRoundedIcon from "@mui/icons-material/DarkModeRounded";
 import LightModeRoundedIcon from "@mui/icons-material/LightModeRounded";
 import BadgeRoundedIcon from "@mui/icons-material/BadgeRounded";
 import { HowToVote, DoorFront } from "@mui/icons-material";
-import EmergencyProcess from "../components/EmergencyProcess";
 import SuccessSnackbar from "../components/SuccessSnackbar";
 import ErrorSnackbar from "../components/ErrorSnackbar";
-import Snackbar from "@mui/joy/Snackbar";
-import { LinearProgress } from "@mui/joy";
-import { HourglassEmpty } from "@mui/icons-material";
+import ProgressSnackbar from "../components/ProgressSnackbar";
+import InputProcess from "../components/InputProcess";
 
 interface FormElements extends HTMLFormControlsCollection {
   email: HTMLInputElement;
@@ -69,7 +67,7 @@ export default function Home() {
   const [authCode, setAuthCode] = React.useState(String);
   const [successOpen, setSuccessOpen] = React.useState(false);
   const [errorOpen, setErrorOpen] = React.useState(false);
-  const [open, processOpen] = React.useState(false);
+  const [progressOpen, setProgressOpen] = React.useState(false);
 
   const [successStatement, setSuccessStatement] = React.useState(null);
   const [errorStatement, setErrorStatement] = React.useState(null);
@@ -197,14 +195,14 @@ export default function Home() {
               />
               <Button
                 onClick={() => {
-                  EmergencyProcess({
+                  InputProcess({
                     authCode: authCode,
+                    setProgressOpen: setProgressOpen,
                     setErrorOpen: setErrorOpen,
                     setErrorStatement: setErrorStatement,
                     setSuccessOpen: setSuccessOpen,
                     setSuccessStatement: setSuccessStatement,
-                  }),
-                    processOpen(true);
+                  })
                 }}
                 color="primary"
                 fullWidth
@@ -212,37 +210,6 @@ export default function Home() {
               >
                 Mulai Memilih
               </Button>
-              <Snackbar
-                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                variant="soft"
-                color="success"
-                open={successOpen}
-                autoHideDuration={3000}
-                onClose={() => {
-                  processOpen(false);
-                }}
-                startDecorator={<HourglassEmpty sx={{ fontSize: 50 }} />}
-              >
-                \
-                <div sx={{ marginLeft: "25px" }}>
-                  <Typography level="title-lg">Memproses Kode!</Typography>
-                  <Typography sx={{ mt: 1, mb: 2 }}>
-                    Sedang Memproses Kode Yang Barusan Anda Masukkan Silahkan Tunggu Sebentar...
-                  </Typography>
-                  <LinearProgress
-                    variant="solid"
-                    color="success"
-                    value={40}
-                    sx={{
-                      position: "absolute",
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      borderRadius: 0,
-                    }}
-                  />
-                </div>
-              </Snackbar>
             </Stack>
           </Box>
           <Box component="footer" sx={{ py: 3 }}>
@@ -265,6 +232,10 @@ export default function Home() {
         setErrorOpen={setErrorOpen}
         errorStatement={errorStatement}
         setErrorStatement={setErrorStatement}
+      />
+      <ProgressSnackbar 
+        progressOpen={progressOpen}
+        setProgressOpen={setProgressOpen}
       />
       <Box
         sx={(theme) => ({

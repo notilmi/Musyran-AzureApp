@@ -62,8 +62,8 @@ function ColorSchemeToggle(props: IconButtonProps) {
 
 export default function Done() {
   setInterval(() => {
-     return redirect("/")
-  }, 5000)
+     return window.location.assign("/")
+  }, 3000)
   return (
     <CssVarsProvider defaultMode="dark" disableTransitionOnChange>
       <CssBaseline />

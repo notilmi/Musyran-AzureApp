@@ -6,9 +6,12 @@ function sendVote({
   setErrorOpen,
   setErrorStatement,
   setSuccessOpen,
-  setSuccessStatement
+  setSuccessStatement,
+  setProgressOpen,
 }) {
+  setProgressOpen(true);
   if (selectedCandidate.length !== 10) {
+    setProgressOpen(false)
     setErrorOpen(true);
     setErrorStatement(
       "Silahkan Pilih 10 Formatur, Tidak Boleh Lebih Atau Kurang"
@@ -22,18 +25,38 @@ function sendVote({
       )
       .then((response) => {
         if (response.status === 200) {
-            setSuccessOpen(true)
-            setSuccessStatement("Voting anda berhasil di rekam! Terimakasih atas komitmen dan kepercayaan anda.")
+          setProgressOpen(false);
+          setSuccessOpen(true);
+          setSuccessStatement(
+            "Voting anda berhasil di rekam! Terimakasih atas komitmen dan kepercayaan anda."
+          );
         }
-      }).catch((error) => {
+      })
+      .catch((error) => {
+        if (error.response.status === 404) {
+          setProgressOpen(false);
+          setErrorOpen(true);
+          setErrorStatement(
+            "Kode Otentikasi kamu tidak valid dan tidak ada di server kami. Hubungi operator untuk informasi lebih lanjut."
+          );
+          setTimeout(() => { window.location.assign("/")}, 5000)
+        }
+
         if (error.response.status === 406) {
-            setErrorOpen(true)
-            setErrorStatement("Anda Sudah Menggunakan Kode Otentikasi / QR Ini Sebelumnya. Silahkan hubungi operator jika anda merasa ini bukan sebuah kesalahan.")
+          setProgressOpen(false);
+          setErrorOpen(true);
+          setErrorStatement(
+            "Anda Sudah Menggunakan Kode Otentikasi / QR Ini Sebelumnya. Silahkan hubungi operator jika anda merasa ini bukan sebuah kesalahan."
+          );
+          setTimeout(() => { window.location.assign("/")}, 5000)
         }
 
         if (error.response.status === 500) {
-            setErrorOpen(true)
-            setErrorStatement("Mohon maaf, terjadi kesalahan ketika hendak menghubungi server kami. Silahkan coba lagi. Jika merasa masih terjadi kesalahan, silahkan hubungi operator.")
+          setProgressOpen(false);
+          setErrorOpen(true);
+          setErrorStatement(
+            "Mohon maaf, terjadi kesalahan ketika hendak menghubungi server kami. Silahkan coba lagi. Jika merasa masih terjadi kesalahan, silahkan hubungi operator."
+          );
         }
       });
   }

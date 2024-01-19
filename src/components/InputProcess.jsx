@@ -1,19 +1,21 @@
 import axios from "axios";
 
-function EmergencyProcess({
+function InputProcess({
   authCode,
+  setProgressOpen,
   setErrorOpen,
   setErrorStatement,
   setSuccessOpen,
   setSuccessStatement,
 }) {
   if (!authCode) {
-    console.log("AuthCode Not Found");
+    console.log("Error 404: Authcode is not found.");
     setErrorOpen(true);
     setErrorStatement(
       "Silahkan masukkan kode terlebih dahulu sebelum menekan tombol submit."
     );
   } else {
+    setProgressOpen(true)
     axios
       .post(
         `api/auth`,
@@ -23,6 +25,7 @@ function EmergencyProcess({
       .then((response) => {
         if (response.status === 200) {
           console.log(response)
+          setProgressOpen(false)
           setSuccessOpen(true);
           setSuccessStatement(
             "Kode terdeteksi! Kamu akan diarahkan ke halaman voting...~"
@@ -32,13 +35,15 @@ function EmergencyProcess({
       .catch((error) => {
         console.log(error)
         if (error.response.status === 404) {
+          setProgressOpen(false)
           setErrorOpen(true);
           setErrorStatement(
-            "Kode kamu tidak valid dan tidak ada di server kami. Hubungi operator untuk informasi lebih lanjut"
+            "Kode Otentikasi kamu tidak valid dan tidak ada di server kami. Hubungi operator untuk informasi lebih lanjut."
           );
         }
 
         if (error.response.status === 406) {
+          setProgressOpen(false)
           setErrorOpen(true);
           setErrorStatement(
             "Kamu telah menggunakan Kode ini sebelumnya. Jika anda merasa ini bukan kesalahan anda, silahkan hubungi operator."
@@ -46,6 +51,7 @@ function EmergencyProcess({
         }
 
         if (error.response.status === 500) {
+          setProgressOpen(false)
           setErrorOpen(true)
           setErrorStatement("Mohon maaf, terjadi kesalahan ketika hendak menghubungi server kami. Silahkan coba lagi. Jika merasa masih terjadi kesalahan, silahkan hubungi operator.")
       }
@@ -53,4 +59,4 @@ function EmergencyProcess({
   }
 }
 
-export default EmergencyProcess;
+export default InputProcess;
