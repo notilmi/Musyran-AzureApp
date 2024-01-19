@@ -33,12 +33,22 @@ function sendVote({
         }
       })
       .catch((error) => {
+        if (error.response.status === 404) {
+          setProgressOpen(false);
+          setErrorOpen(true);
+          setErrorStatement(
+            "Kode Otentikasi kamu tidak valid dan tidak ada di server kami. Hubungi operator untuk informasi lebih lanjut."
+          );
+          setTimeout(() => { window.location.assign("/")}, 5000)
+        }
+
         if (error.response.status === 406) {
           setProgressOpen(false);
           setErrorOpen(true);
           setErrorStatement(
             "Anda Sudah Menggunakan Kode Otentikasi / QR Ini Sebelumnya. Silahkan hubungi operator jika anda merasa ini bukan sebuah kesalahan."
           );
+          setTimeout(() => { window.location.assign("/")}, 5000)
         }
 
         if (error.response.status === 500) {

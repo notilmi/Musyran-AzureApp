@@ -38,7 +38,7 @@ function InputProcess({
           setProgressOpen(false)
           setErrorOpen(true);
           setErrorStatement(
-            "Kode kamu tidak valid dan tidak ada di server kami. Hubungi operator untuk informasi lebih lanjut"
+            "Kode Otentikasi kamu tidak valid dan tidak ada di server kami. Hubungi operator untuk informasi lebih lanjut."
           );
         }
 
